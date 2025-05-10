@@ -104,3 +104,4 @@ C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\ref\BiblioGest.d
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LivreView.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LivreView.baml
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\BiblioGest.sourcelink.json

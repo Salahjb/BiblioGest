@@ -3,12 +3,54 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:BiblioGest"
+        xmlns:local="clr-namespace:BiblioGest.ViewModels"
         xmlns:views="clr-namespace:BiblioGest.Views"
         mc:Ignorable="d"
-        Title="BiblioGest" Height="600" Width="800">
+        Title="BiblioGest - Gestion de Bibliothèque" Height="600" Width="1000">
+
     <Grid>
-        <!-- Just for now, you directly show the LivreView -->
-        <views:LivreView/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- Navigation Menu -->
+        <StackPanel Grid.Column="0" Background="#2c3e50">
+            <TextBlock Text="BiblioGest" FontSize="24" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
+
+            <Button Content="Livres" 
+                    Command="{Binding ShowBooksCommand}" 
+                    Height="40" 
+                    Margin="10,5" 
+                    Background="#3498db" 
+                    Foreground="White"
+                    BorderThickness="0"/>
+
+            <Button Content="Adhérents" 
+                    Command="{Binding ShowMembersCommand}" 
+                    Height="40" 
+                    Margin="10,5" 
+                    Background="#3498db" 
+                    Foreground="White"
+                    BorderThickness="0"/>
+
+            <Button Content="Emprunts" 
+                    Command="{Binding ShowLoansCommand}" 
+                    Height="40" 
+                    Margin="10,5" 
+                    Background="#3498db" 
+                    Foreground="White"
+                    BorderThickness="0"/>
+        </StackPanel>
+
+        <!-- Content Area -->
+        <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}">
+            <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type local:LivreViewModel}">
+                    <views:LivreView/>
+                </DataTemplate>
+                <!-- Add more templates for other ViewModels as needed -->
+            </ContentControl.Resources>
+        </ContentControl>
     </Grid>
 </Window>

@@ -34,7 +34,7 @@ namespace BiblioGest.ViewModels
             LoginCommand = new RelayCommand(_ => Login());
         }
 
-        private void Login()
+        public void Login()
         {
             if (string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {

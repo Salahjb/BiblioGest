@@ -112,3 +112,6 @@ C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\EmpruntVie
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LoginView.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LoginView.baml
 C:\Users\salah\source\repos\BiblioGest\bin\Debug\net8.0-windows\BCrypt.Net-Next.dll
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\App.baml
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\LoginWindow.g.cs
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\LoginWindow.baml

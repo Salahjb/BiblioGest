@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP
 C:\Users\salah\source\repos\BiblioGest\App.xaml
-51289291491
+6-334407325
 
-301103105277
+32-1925135361
 2131446733922
-MainWindow.xaml;Views\AdherentView.xaml;Views\EmpruntView.xaml;Views\LivreView.xaml;Views\LoginView.xaml;
+LoginWindow.xaml;MainWindow.xaml;Views\AdherentView.xaml;Views\EmpruntView.xaml;Views\LivreView.xaml;Views\LoginView.xaml;
 
 False
 

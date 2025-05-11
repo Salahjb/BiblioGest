@@ -49,6 +49,12 @@
                 <DataTemplate DataType="{x:Type local:LivreViewModel}">
                     <views:LivreView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type local:AdherentViewModel}">
+                    <views:AdherentView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type local:EmpruntViewModel}">
+                    <views:EmpruntView/>
+                </DataTemplate>
                 <!-- Add more templates for other ViewModels as needed -->
             </ContentControl.Resources>
         </ContentControl>

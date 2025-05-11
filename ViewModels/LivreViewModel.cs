@@ -1,199 +1,4 @@
 ﻿
-//using BiblioGest.Commands;
-//using BiblioGest.Models;
-//using System.Collections.ObjectModel;
-//using System.Linq;
-//using System.Windows;
-//using System.Windows.Input;
-
-//namespace BiblioGest.ViewModels
-//{
-//    public class LivreViewModel : ViewModelBase
-//    {
-//        private readonly BiblioDbContext _dbContext;
-
-//        public ObservableCollection<Livre> Livres { get; set; }
-//        private Livre? _selectedLivre;
-//        public Livre? SelectedLivre
-//        {
-//            get => _selectedLivre;
-//            set => SetProperty(ref _selectedLivre, value);
-//        }
-
-//        private string _searchText = string.Empty;
-//        public string SearchText
-//        {
-//            get => _searchText;
-//            set => SetProperty(ref _searchText, value);
-//        }
-
-//        private bool _isFormVisible;
-//        public bool IsFormVisible
-//        {
-//            get => _isFormVisible;
-//            set => SetProperty(ref _isFormVisible, value);
-//        }
-
-//        private Livre _formLivre = new();
-//        public Livre FormLivre
-//        {
-//            get => _formLivre;
-//            set => SetProperty(ref _formLivre, value);
-//        }
-
-//        private string _formTitle = "Ajouter un Livre";
-//        public string FormTitle
-//        {
-//            get => _formTitle;
-//            set => SetProperty(ref _formTitle, value);
-//        }
-
-//        private bool _isEditMode = false;
-
-//        // Commands
-//        public ICommand ShowAddFormCommand { get; }
-//        public ICommand ShowEditFormCommand { get; }
-//        public ICommand SubmitFormCommand { get; }
-//        public ICommand CancelFormCommand { get; }
-//        public ICommand DeleteCommand { get; }
-//        public ICommand SaveCommand { get; }
-//        public ICommand SearchCommand { get; }
-
-//        public LivreViewModel(BiblioDbContext dbContext)
-//        {
-//            _dbContext = dbContext;
-//            Livres = new ObservableCollection<Livre>(_dbContext.Livres.ToList());
-
-//            ShowAddFormCommand = new RelayCommand(_ => ShowAddForm());
-//            ShowEditFormCommand = new RelayCommand(_ => ShowEditForm(), _ => SelectedLivre != null);
-//            SubmitFormCommand = new RelayCommand(_ => SubmitForm());
-//            CancelFormCommand = new RelayCommand(_ => CancelForm());
-//            DeleteCommand = new RelayCommand(_ => DeleteLivre(), _ => SelectedLivre != null);
-//            SaveCommand = new RelayCommand(_ => SaveChanges());
-//            SearchCommand = new RelayCommand(_ => Search());
-//        }
-
-//        private void ShowAddForm()
-//        {
-//            FormLivre = new Livre();
-//            FormTitle = "Ajouter un Livre";
-//            _isEditMode = false;
-//            IsFormVisible = true;
-//        }
-
-//        private void ShowEditForm()
-//        {
-//            if (SelectedLivre == null) return;
-//            FormLivre = new Livre
-//            {
-//                ISBN = SelectedLivre.ISBN,
-//                Titre = SelectedLivre.Titre,
-//                Auteur = SelectedLivre.Auteur,
-//                Editeur = SelectedLivre.Editeur,
-//                AnneePublication = SelectedLivre.AnneePublication,
-//                NombreExemplaires = SelectedLivre.NombreExemplaires,
-//                // Ensure you are setting the correct CategorieId when editing
-//                CategorieId = SelectedLivre.CategorieId
-//            };
-//            FormTitle = "Modifier le Livre";
-//            _isEditMode = true;
-//            IsFormVisible = true;
-//        }
-
-//        private void SubmitForm()
-//        {
-//            if (_isEditMode)
-//            {
-//                // Update existing
-//                var livre = _dbContext.Livres.FirstOrDefault(l => l.ISBN == FormLivre.ISBN);
-//                if (livre != null)
-//                {
-//                    livre.Titre = FormLivre.Titre;
-//                    livre.Auteur = FormLivre.Auteur;
-//                    livre.Editeur = FormLivre.Editeur;
-//                    livre.AnneePublication = FormLivre.AnneePublication;
-//                    livre.NombreExemplaires = FormLivre.NombreExemplaires;
-//                    livre.CategorieId = FormLivre.CategorieId;  // Ensure this is set correctly
-//                }
-
-//                var item = Livres.FirstOrDefault(l => l.ISBN == FormLivre.ISBN);
-//                if (item != null)
-//                {
-//                    item.Titre = FormLivre.Titre;
-//                    item.Auteur = FormLivre.Auteur;
-//                    item.Editeur = FormLivre.Editeur;
-//                    item.AnneePublication = FormLivre.AnneePublication;
-//                    item.NombreExemplaires = FormLivre.NombreExemplaires;
-//                    item.CategorieId = FormLivre.CategorieId;  // Ensure the category is updated correctly
-//                }
-
-//                _dbContext.SaveChanges();  // Save changes to database
-//            }
-//            else
-//            {
-//                // Add new
-//                if (_dbContext.Livres.Any(l => l.ISBN == FormLivre.ISBN))
-//                {
-//                    MessageBox.Show("Un livre avec le même ISBN existe déjà.");
-//                    return;
-//                }
-
-//                // Ensure CategorieId is set before adding
-//                FormLivre.CategorieId = FormLivre.CategorieId;
-
-//                _dbContext.Livres.Add(FormLivre);
-//                _dbContext.SaveChanges();  // Commit new Livre to the database
-
-//                Livres.Add(FormLivre);  // Add to in-memory collection
-//            }
-
-//            IsFormVisible = false;
-//        }
-
-//        private void CancelForm()
-//        {
-//            IsFormVisible = false;
-//        }
-
-//        private void DeleteLivre()
-//        {
-//            if (SelectedLivre == null) return;
-
-//            if (MessageBox.Show("Confirmer la suppression ?", "Suppression", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-//            {
-//                _dbContext.Livres.Remove(SelectedLivre);
-//                _dbContext.SaveChanges();  // Commit deletion to the database
-
-//                Livres.Remove(SelectedLivre);  // Remove from in-memory collection
-//                SelectedLivre = null;  // Reset selected Livre
-//            }
-//        }
-
-//        private void SaveChanges()
-//        {
-//            _dbContext.SaveChanges();  // Commit any pending changes to the database
-//        }
-
-//        private void Search()
-//        {
-//            if (string.IsNullOrWhiteSpace(SearchText))
-//            {
-//                Livres = new ObservableCollection<Livre>(_dbContext.Livres.ToList());
-//            }
-//            else
-//            {
-//                var query = _dbContext.Livres
-//                    .Where(l => l.Titre.Contains(SearchText) ||
-//                                l.Auteur.Contains(SearchText) ||
-//                                l.ISBN.Contains(SearchText))
-//                    .ToList();
-//                Livres = new ObservableCollection<Livre>(query);
-//            }
-
-//            OnPropertyChanged(nameof(Livres));
-//        }
-//    }
-//}
 using BiblioGest.Commands;
 using BiblioGest.Models;
 using Microsoft.EntityFrameworkCore;
@@ -211,11 +16,26 @@ namespace BiblioGest.ViewModels
         private readonly BiblioDbContext _dbContext;
 
         public ObservableCollection<Livre> Livres { get; private set; }
+        public ObservableCollection<Categorie> Categories { get; private set; }
+
         private Livre? _selectedLivre;
         public Livre? SelectedLivre
         {
             get => _selectedLivre;
             set => SetProperty(ref _selectedLivre, value);
+        }
+
+        private Categorie? _selectedCategorie;
+        public Categorie? SelectedCategorie
+        {
+            get => _selectedCategorie;
+            set
+            {
+                if (SetProperty(ref _selectedCategorie, value) && value != null)
+                {
+                    FormLivre.CategorieId = value.Id;
+                }
+            }
         }
 
         private string _searchText = string.Empty;
@@ -265,6 +85,7 @@ namespace BiblioGest.ViewModels
             MessageBox.Show($"Database connection state: {_dbContext.Database.CanConnect()}");
 
             LoadBooks();
+            LoadCategories();
 
             ShowAddFormCommand = new RelayCommand(_ => ShowAddForm());
             ShowEditFormCommand = new RelayCommand(_ => ShowEditForm(), _ => SelectedLivre != null);
@@ -279,7 +100,9 @@ namespace BiblioGest.ViewModels
         {
             try
             {
-                var books = _dbContext.Livres.ToList();
+                var books = _dbContext.Livres
+                    .Include(l => l.Categorie) // Eager load the Categorie for each Livre
+                    .ToList();
                 MessageBox.Show($"Loaded {books.Count} books from database");
                 Livres = new ObservableCollection<Livre>(books);
             }
@@ -290,12 +113,34 @@ namespace BiblioGest.ViewModels
             }
         }
 
+        private void LoadCategories()
+        {
+            try
+            {
+                var categories = _dbContext.Categories.ToList();
+                MessageBox.Show($"Loaded {categories.Count} categories from database");
+                Categories = new ObservableCollection<Categorie>(categories);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading categories: {ex.Message}");
+                Categories = new ObservableCollection<Categorie>();
+            }
+        }
+
         private void ShowAddForm()
         {
             FormLivre = new Livre();
             FormTitle = "Ajouter un Livre";
             _isEditMode = false;
             IsFormVisible = true;
+
+            // Default to first category if available
+            SelectedCategorie = Categories.FirstOrDefault();
+            if (SelectedCategorie != null)
+            {
+                FormLivre.CategorieId = SelectedCategorie.Id;
+            }
         }
 
         private void ShowEditForm()
@@ -313,6 +158,9 @@ namespace BiblioGest.ViewModels
                 NombreExemplaires = SelectedLivre.NombreExemplaires,
                 CategorieId = SelectedLivre.CategorieId
             };
+
+            // Set the selected category based on the book's category ID
+            SelectedCategorie = Categories.FirstOrDefault(c => c.Id == SelectedLivre.CategorieId);
 
             FormTitle = "Modifier le Livre";
             _isEditMode = true;
@@ -377,6 +225,7 @@ namespace BiblioGest.ViewModels
                                 item.AnneePublication = FormLivre.AnneePublication;
                                 item.NombreExemplaires = FormLivre.NombreExemplaires;
                                 item.CategorieId = FormLivre.CategorieId;
+                                item.Categorie = Categories.FirstOrDefault(c => c.Id == FormLivre.CategorieId);
                             }
 
                             MessageBox.Show("Livre modifié avec succès");
@@ -423,6 +272,9 @@ namespace BiblioGest.ViewModels
 
                         if (result > 0)
                         {
+                            // Set the category object for the new book
+                            FormLivre.Categorie = category;
+
                             // Add to observable collection only if successfully saved to database
                             Livres.Add(FormLivre);
                             MessageBox.Show("Livre ajouté avec succès");
@@ -521,6 +373,7 @@ namespace BiblioGest.ViewModels
                 {
                     var lowerSearchText = SearchText.ToLower();
                     var query = _dbContext.Livres
+                        .Include(l => l.Categorie) // Make sure to include the Categorie
                         .Where(l => l.Titre.ToLower().Contains(lowerSearchText) ||
                                     l.Auteur.ToLower().Contains(lowerSearchText) ||
                                     l.ISBN.ToLower().Contains(lowerSearchText))

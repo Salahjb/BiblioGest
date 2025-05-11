@@ -21,7 +21,6 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-        //DataContext = App.Current.Services.GetService<LivreViewModel>();
         //DataContext = ((App)App.Current).Services.GetService<LivreViewModel>();
     }
 }

@@ -105,3 +105,7 @@ C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\GeneratedInterna
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LivreView.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LivreView.baml
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\BiblioGest.sourcelink.json
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\AdherentView.g.cs
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\AdherentView.baml
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\EmpruntView.g.cs
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\EmpruntView.baml

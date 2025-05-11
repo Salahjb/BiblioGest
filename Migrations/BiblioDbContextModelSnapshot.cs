@@ -138,6 +138,10 @@ namespace BiblioGest.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("Statut")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AdherentId");

@@ -21,6 +21,8 @@ namespace BiblioGest.Models
 
         public DateTime? DateRetourEffective { get; set; }
 
+        public string Statut { get; set; } = "En cours";
+
         public bool EstEnRetard => DateRetourEffective == null && DateTime.Now > DateRetourPrevue;
     }
 }

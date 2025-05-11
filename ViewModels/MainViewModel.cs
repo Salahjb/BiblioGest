@@ -25,8 +25,10 @@ namespace BiblioGest.ViewModels
 
             // Initialize commands
             ShowBooksCommand = new RelayCommand(_ => CurrentViewModel = new LivreViewModel(_dbContext));
-            //ShowMembersCommand = new RelayCommand(_ => CurrentViewModel = new MembersViewModel(_dbContext));
-            //ShowLoansCommand = new RelayCommand(_ => CurrentViewModel = new LoansViewModel(_dbContext));
+
+            ShowMembersCommand = new RelayCommand(_ => CurrentViewModel = new AdherentViewModel(_dbContext));
+
+            ShowLoansCommand = new RelayCommand(_ => CurrentViewModel = new EmpruntViewModel(_dbContext));
 
             // Set default view
             CurrentViewModel = new LivreViewModel(_dbContext);

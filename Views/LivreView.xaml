@@ -33,7 +33,7 @@
                 <DataGridTextColumn Header="Auteur" Binding="{Binding Auteur}" Width="150"/>
                 <DataGridTextColumn Header="Éditeur" Binding="{Binding Editeur}" Width="120"/>
                 <DataGridTextColumn Header="Année" Binding="{Binding AnneePublication}" Width="70"/>
-                <DataGridTextColumn Header="Catégorie" Binding="{Binding CategorieId}" Width="90"/>
+                <DataGridTextColumn Header="Catégorie" Binding="{Binding Categorie.Nom}" Width="120"/>
                 <DataGridTextColumn Header="Exemplaires" Binding="{Binding NombreExemplaires}" Width="90"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -89,9 +89,12 @@
                         <TextBlock Text="Année:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
                         <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding FormLivre.AnneePublication}" />
 
-                        <!-- Catégorie -->
-                        <TextBlock Text="Catégorie ID:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
-                        <TextBox Grid.Row="5" Grid.Column="1" Margin="5" Text="{Binding FormLivre.CategorieId}" />
+                        <!-- Catégorie (ComboBox) -->
+                        <TextBlock Text="Catégorie:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                        <ComboBox Grid.Row="5" Grid.Column="1" Margin="5" 
+                                  ItemsSource="{Binding Categories}"
+                                  SelectedItem="{Binding SelectedCategorie}"
+                                  DisplayMemberPath="Nom" />
 
                         <!-- Nombre d'exemplaires -->
                         <TextBlock Text="Exemplaires:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>

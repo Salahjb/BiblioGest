@@ -1,0 +1,136 @@
+﻿<UserControl x:Class="BiblioGest.Views.AdherentView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:BiblioGest.Views"
+             xmlns:conv="clr-namespace:BiblioGest.Helpers">
+    <UserControl.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="10,5"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search -->
+        <!-- ToolTip="Rechercher par nom, prénom, email ou téléphone" -->
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="10">
+            <TextBox Width="300" Margin="0,0,10,0" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}" />
+            <Button Content="Rechercher" Command="{Binding SearchCommand}" Width="100" />
+        </StackPanel>
+        <!-- Data Grid -->
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding Adherents}"
+                  SelectedItem="{Binding SelectedAdherent}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Margin="10"
+                  SelectionMode="Single"
+                  AlternatingRowBackground="#F5F5F5">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
+                <DataGridTextColumn Header="Nom" Binding="{Binding Nom}" Width="120"/>
+                <DataGridTextColumn Header="Prénom" Binding="{Binding Prenom}" Width="120"/>
+                <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="180"/>
+                <DataGridTextColumn Header="Téléphone" Binding="{Binding Telephone}" Width="120"/>
+                <DataGridTextColumn Header="Date d'inscription" Binding="{Binding DateInscription, StringFormat={}{0:dd/MM/yyyy}}" Width="120"/>
+                <DataGridTemplateColumn Header="Statut" Width="80">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Text" Value="Actif"/>
+                                        <Setter Property="Foreground" Value="Green"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding EstActif}" Value="False">
+                                                <Setter Property="Text" Value="Inactif"/>
+                                                <Setter Property="Foreground" Value="Red"/>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Emprunts" Binding="{Binding Emprunts.Count}" Width="80"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <!-- Action Buttons -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+            <Button Content="Ajouter" Command="{Binding ShowAddFormCommand}" Width="80"/>
+            <Button Content="Modifier" Command="{Binding ShowEditFormCommand}" Width="80"/>
+            <Button Content="Supprimer" Command="{Binding DeleteCommand}" Width="80"/>
+            <Button Content="Enregistrer" Command="{Binding SaveCommand}" Width="80"/>
+        </StackPanel>
+
+        <!-- Popup Form Overlay -->
+        <Border Background="#AA000000" Visibility="{Binding IsFormVisible, Converter={StaticResource BoolToVisibilityConverter}}"
+                Grid.RowSpan="3">
+            <Border HorizontalAlignment="Center" VerticalAlignment="Center"
+                    Background="White" Padding="20" Width="500" CornerRadius="8">
+                <StackPanel>
+                    <TextBlock Text="{Binding FormTitle}" FontWeight="Bold" FontSize="16" Margin="0,0,0,20" />
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <!-- Nom -->
+                        <TextBlock Text="Nom:" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Margin="5" Text="{Binding FormAdherent.Nom}" />
+
+                        <!-- Prénom -->
+                        <TextBlock Text="Prénom:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Margin="5" Text="{Binding FormAdherent.Prenom}" />
+
+                        <!-- Adresse -->
+                        <TextBlock Text="Adresse:" Grid.Row="2" Grid.Column="0" VerticalAlignment="Top" Margin="5,10,5,5"/>
+                        <TextBox Grid.Row="2" Grid.Column="1" Margin="5" Text="{Binding FormAdherent.Adresse}" 
+                                 AcceptsReturn="True" TextWrapping="Wrap" Height="60" />
+
+                        <!-- Email -->
+                        <TextBlock Text="Email:" Grid.Row="3" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                        <TextBox Grid.Row="3" Grid.Column="1" Margin="5" Text="{Binding FormAdherent.Email}" />
+
+                        <!-- Téléphone -->
+                        <TextBlock Text="Téléphone:" Grid.Row="4" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                        <TextBox Grid.Row="4" Grid.Column="1" Margin="5" Text="{Binding FormAdherent.Telephone}" />
+
+                        <!-- Date d'inscription -->
+                        <TextBlock Text="Date d'inscription:" Grid.Row="5" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                        <DatePicker Grid.Row="5" Grid.Column="1" Margin="5" SelectedDate="{Binding FormAdherent.DateInscription}" />
+
+                        <!-- Statut -->
+                        <TextBlock Text="Statut:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                        <CheckBox Grid.Row="6" Grid.Column="1" Margin="5" Content="Actif" IsChecked="{Binding FormAdherent.EstActif}" />
+                    </Grid>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">
+                        <Button Content="Annuler" Command="{Binding CancelFormCommand}" />
+                        <Button Content="Valider" Command="{Binding SubmitFormCommand}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Border>
+    </Grid>
+</UserControl>

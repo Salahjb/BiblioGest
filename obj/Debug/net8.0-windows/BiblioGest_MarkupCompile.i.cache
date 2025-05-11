@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 C:\Users\salah\source\repos\BiblioGest\App.xaml
-4968394200
+51289291491
 
-271726785811
-212-1320919228
-MainWindow.xaml;Views\AdherentView.xaml;Views\EmpruntView.xaml;Views\LivreView.xaml;
+32-1401376645
+2131446733922
+MainWindow.xaml;Views\AdherentView.xaml;Views\EmpruntView.xaml;Views\LivreView.xaml;Views\LoginView.xaml;
 
 False
 

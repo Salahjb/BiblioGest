@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BiblioGest.Models
 {
@@ -32,6 +33,12 @@ namespace BiblioGest.Models
         public DateTime DateInscription { get; set; }
 
         public bool EstActif { get; set; } = true;
+
+        public string PasswordHash { get; set; }
+
+        
+        [NotMapped] 
+        public string Password { get; set; } = string.Empty;
 
         // Navigation property
         public ICollection<Emprunt> Emprunts { get; set; } = new List<Emprunt>();

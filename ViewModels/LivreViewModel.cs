@@ -82,7 +82,7 @@ namespace BiblioGest.ViewModels
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
 
             // Log connection state
-            MessageBox.Show($"Database connection state: {_dbContext.Database.CanConnect()}");
+            //MessageBox.Show($"Database connection state: {_dbContext.Database.CanConnect()}");
 
             LoadBooks();
             LoadCategories();
@@ -103,7 +103,7 @@ namespace BiblioGest.ViewModels
                 var books = _dbContext.Livres
                     .Include(l => l.Categorie) // Eager load the Categorie for each Livre
                     .ToList();
-                MessageBox.Show($"Loaded {books.Count} books from database");
+                //MessageBox.Show($"Loaded {books.Count} books from database");
                 Livres = new ObservableCollection<Livre>(books);
             }
             catch (Exception ex)
@@ -118,7 +118,7 @@ namespace BiblioGest.ViewModels
             try
             {
                 var categories = _dbContext.Categories.ToList();
-                MessageBox.Show($"Loaded {categories.Count} categories from database");
+                //MessageBox.Show($"Loaded {categories.Count} categories from database");
                 Categories = new ObservableCollection<Categorie>(categories);
             }
             catch (Exception ex)

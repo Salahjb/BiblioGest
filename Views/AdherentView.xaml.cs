@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiblioGest.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,14 @@ namespace BiblioGest.Views
         public AdherentView()
         {
             InitializeComponent();
+        }
+
+        private void PasswordBoxInput_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext is AdherentViewModel vm && sender is PasswordBox pb)
+            {
+                vm.PasswordInput = pb.Password;
+            }
         }
     }
 }

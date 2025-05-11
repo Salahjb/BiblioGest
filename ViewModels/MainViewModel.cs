@@ -19,19 +19,39 @@ namespace BiblioGest.ViewModels
         public ICommand ShowMembersCommand { get; }
         public ICommand ShowLoansCommand { get; }
 
+        //public MainViewModel()
+        //{
+        //    _dbContext = new BiblioDbContext(); // Or use dependency injection
+
+        //    // Initialize commands
+        //    ShowBooksCommand = new RelayCommand(_ => CurrentViewModel = new LivreViewModel(_dbContext));
+
+        //    ShowMembersCommand = new RelayCommand(_ => CurrentViewModel = new AdherentViewModel(_dbContext));
+
+        //    ShowLoansCommand = new RelayCommand(_ => CurrentViewModel = new EmpruntViewModel(_dbContext));
+
+        //    // Set default view
+        //    CurrentViewModel = new LivreViewModel(_dbContext);
+        //}
+
         public MainViewModel()
         {
-            _dbContext = new BiblioDbContext(); // Or use dependency injection
+            _dbContext = new BiblioDbContext();
 
-            // Initialize commands
+            var loginVM = new LoginViewModel(_dbContext);
+            loginVM.LoginSucceeded += user =>
+            {
+                LoggedInAdherent = user;
+                CurrentViewModel = new LivreViewModel(_dbContext);
+            };
+
+            CurrentViewModel = loginVM;
+
             ShowBooksCommand = new RelayCommand(_ => CurrentViewModel = new LivreViewModel(_dbContext));
-
             ShowMembersCommand = new RelayCommand(_ => CurrentViewModel = new AdherentViewModel(_dbContext));
-
             ShowLoansCommand = new RelayCommand(_ => CurrentViewModel = new EmpruntViewModel(_dbContext));
-
-            // Set default view
-            CurrentViewModel = new LivreViewModel(_dbContext);
         }
+
+        public Adherent? LoggedInAdherent { get; private set; }
     }
 }

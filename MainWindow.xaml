@@ -42,10 +42,14 @@
                     Foreground="White"
                     BorderThickness="0"/>
         </StackPanel>
+        
 
         <!-- Content Area -->
         <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}">
             <ContentControl.Resources>
+                <DataTemplate DataType="{x:Type local:LoginViewModel}">
+                    <views:LoginView/>
+                </DataTemplate>
                 <DataTemplate DataType="{x:Type local:LivreViewModel}">
                     <views:LivreView/>
                 </DataTemplate>
@@ -55,7 +59,7 @@
                 <DataTemplate DataType="{x:Type local:EmpruntViewModel}">
                     <views:EmpruntView/>
                 </DataTemplate>
-                <!-- Add more templates for other ViewModels as needed -->
+                <!--  more templates for other ViewModels as needed -->
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

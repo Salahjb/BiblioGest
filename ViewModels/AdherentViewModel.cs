@@ -52,6 +52,13 @@ namespace BiblioGest.ViewModels
 
         private bool _isEditMode = false;
 
+        private string _passwordInput;
+        public string PasswordInput
+        {
+            get => _passwordInput;
+            set => SetProperty(ref _passwordInput, value);
+        }
+
         // Commands
         public ICommand ShowAddFormCommand { get; }
         public ICommand ShowEditFormCommand { get; }
@@ -131,35 +138,32 @@ namespace BiblioGest.ViewModels
         {
             try
             {
-                // Validate required fields
-                if (string.IsNullOrWhiteSpace(FormAdherent.Nom))
+                if (string.IsNullOrWhiteSpace(FormAdherent.Nom) ||
+                    string.IsNullOrWhiteSpace(FormAdherent.Prenom) ||
+                    string.IsNullOrWhiteSpace(FormAdherent.Email))
                 {
-                    MessageBox.Show("Le nom est obligatoire");
+                    MessageBox.Show("Nom, prénom et email sont obligatoires");
                     return;
                 }
 
-                if (string.IsNullOrWhiteSpace(FormAdherent.Prenom))
-                {
-                    MessageBox.Show("Le prénom est obligatoire");
-                    return;
-                }
-
-                if (string.IsNullOrWhiteSpace(FormAdherent.Email))
-                {
-                    MessageBox.Show("L'email est obligatoire");
-                    return;
-                }
-
-                // Simple email validation
                 if (!FormAdherent.Email.Contains("@") || !FormAdherent.Email.Contains("."))
                 {
                     MessageBox.Show("Format d'email invalide");
                     return;
                 }
 
-                if (_isEditMode)
+                if (!_isEditMode)
                 {
-                    // Update existing - find the actual entity in the DbContext
+                    if (string.IsNullOrWhiteSpace(PasswordInput))
+                    {
+                        MessageBox.Show("Le mot de passe est obligatoire");
+                        return;
+                    }
+                    FormAdherent.PasswordHash = BCrypt.Net.BCrypt.HashPassword(PasswordInput);
+                    _dbContext.Adherents.Add(FormAdherent);
+                }
+                else
+                {
                     var adherent = _dbContext.Adherents.Find(FormAdherent.Id);
                     if (adherent != null)
                     {
@@ -170,53 +174,18 @@ namespace BiblioGest.ViewModels
                         adherent.Telephone = FormAdherent.Telephone;
                         adherent.DateInscription = FormAdherent.DateInscription;
                         adherent.EstActif = FormAdherent.EstActif;
-
                         _dbContext.Adherents.Update(adherent);
-                        var result = _dbContext.SaveChanges();
-
-                        if (result > 0)
-                        {
-                            // Update the item in the observable collection
-                            var item = Adherents.FirstOrDefault(a => a.Id == FormAdherent.Id);
-                            if (item != null)
-                            {
-                                item.Nom = FormAdherent.Nom;
-                                item.Prenom = FormAdherent.Prenom;
-                                item.Adresse = FormAdherent.Adresse;
-                                item.Email = FormAdherent.Email;
-                                item.Telephone = FormAdherent.Telephone;
-                                item.DateInscription = FormAdherent.DateInscription;
-                                item.EstActif = FormAdherent.EstActif;
-                            }
-
-                            MessageBox.Show("Adhérent modifié avec succès");
-                        }
-                        else
-                        {
-                            MessageBox.Show("L'adhérent n'a pas été modifié, aucun changement détecté");
-                        }
-                    }
-                    else
-                    {
-                        MessageBox.Show("L'adhérent n'a pas été trouvé dans la base de données");
                     }
                 }
-                else
-                {
-                    // Add new
-                    _dbContext.Adherents.Add(FormAdherent);
-                    var result = _dbContext.SaveChanges();
 
-                    if (result > 0)
-                    {
-                        // Add to observable collection only if successfully saved to database
+                var result = _dbContext.SaveChanges();
+
+                if (result > 0)
+                {
+                    if (!_isEditMode)
                         Adherents.Add(FormAdherent);
-                        MessageBox.Show("Adhérent ajouté avec succès");
-                    }
-                    else
-                    {
-                        MessageBox.Show("Erreur lors de l'ajout de l'adhérent: Aucune ligne affectée");
-                    }
+
+                    MessageBox.Show(_isEditMode ? "Adhérent modifié avec succès" : "Adhérent ajouté avec succès");
                 }
 
                 IsFormVisible = false;
@@ -226,6 +195,107 @@ namespace BiblioGest.ViewModels
                 MessageBox.Show($"Erreur: {ex.Message}\n\nStack: {ex.StackTrace}");
             }
         }
+
+        //private void SubmitForm()
+        //{
+        //    try
+        //    {
+        //        // Validate required fields
+        //        if (string.IsNullOrWhiteSpace(FormAdherent.Nom))
+        //        {
+        //            MessageBox.Show("Le nom est obligatoire");
+        //            return;
+        //        }
+
+        //        if (string.IsNullOrWhiteSpace(FormAdherent.Prenom))
+        //        {
+        //            MessageBox.Show("Le prénom est obligatoire");
+        //            return;
+        //        }
+
+        //        if (string.IsNullOrWhiteSpace(FormAdherent.Email))
+        //        {
+        //            MessageBox.Show("L'email est obligatoire");
+        //            return;
+        //        }
+
+        //        // Simple email validation
+        //        if (!FormAdherent.Email.Contains("@") || !FormAdherent.Email.Contains("."))
+        //        {
+        //            MessageBox.Show("Format d'email invalide");
+        //            return;
+        //        }
+
+        //        if (_isEditMode)
+        //        {
+        //            // Update existing - find the actual entity in the DbContext
+        //            var adherent = _dbContext.Adherents.Find(FormAdherent.Id);
+        //            if (adherent != null)
+        //            {
+        //                adherent.Nom = FormAdherent.Nom;
+        //                adherent.Prenom = FormAdherent.Prenom;
+        //                adherent.Adresse = FormAdherent.Adresse;
+        //                adherent.Email = FormAdherent.Email;
+        //                adherent.Telephone = FormAdherent.Telephone;
+        //                adherent.DateInscription = FormAdherent.DateInscription;
+        //                adherent.EstActif = FormAdherent.EstActif;
+
+        //                _dbContext.Adherents.Update(adherent);
+        //                var result = _dbContext.SaveChanges();
+
+        //                if (result > 0)
+        //                {
+        //                    // Update the item in the observable collection
+        //                    var item = Adherents.FirstOrDefault(a => a.Id == FormAdherent.Id);
+        //                    if (item != null)
+        //                    {
+        //                        item.Nom = FormAdherent.Nom;
+        //                        item.Prenom = FormAdherent.Prenom;
+        //                        item.Adresse = FormAdherent.Adresse;
+        //                        item.Email = FormAdherent.Email;
+        //                        item.Telephone = FormAdherent.Telephone;
+        //                        item.DateInscription = FormAdherent.DateInscription;
+        //                        item.EstActif = FormAdherent.EstActif;
+        //                    }
+
+        //                    MessageBox.Show("Adhérent modifié avec succès");
+        //                }
+        //                else
+        //                {
+        //                    MessageBox.Show("L'adhérent n'a pas été modifié, aucun changement détecté");
+        //                }
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("L'adhérent n'a pas été trouvé dans la base de données");
+        //            }
+        //        }
+        //        else
+        //        {
+        //            // Add new
+        //            _dbContext.Adherents.Add(FormAdherent);
+        //            var result = _dbContext.SaveChanges();
+
+        //            if (result > 0)
+        //            {
+        //                // Add to observable collection only if successfully saved to database
+        //                Adherents.Add(FormAdherent);
+        //                MessageBox.Show("Adhérent ajouté avec succès");
+        //            }
+        //            else
+        //            {
+        //                MessageBox.Show("Erreur lors de l'ajout de l'adhérent: Aucune ligne affectée");
+        //            }
+        //        }
+
+        //        IsFormVisible = false;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show($"Erreur: {ex.Message}\n\nStack: {ex.StackTrace}");
+        //    }
+        //    FormAdherent.PasswordHash = BCrypt.Net.BCrypt.HashPassword("defaultPassword123"); // Or from input
+        //}
 
         private void CancelForm()
         {

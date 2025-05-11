@@ -109,3 +109,6 @@ C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\AdherentVi
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\AdherentView.baml
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\EmpruntView.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\EmpruntView.baml
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LoginView.g.cs
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LoginView.baml
+C:\Users\salah\source\repos\BiblioGest\bin\Debug\net8.0-windows\BCrypt.Net-Next.dll

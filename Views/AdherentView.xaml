@@ -93,6 +93,7 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
 
                         <!-- Nom -->
@@ -123,6 +124,12 @@
                         <!-- Statut -->
                         <TextBlock Text="Statut:" Grid.Row="6" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
                         <CheckBox Grid.Row="6" Grid.Column="1" Margin="5" Content="Actif" IsChecked="{Binding FormAdherent.EstActif}" />
+                        
+                        <!-- Password -->
+                        <TextBlock Text="Mot de passe:" Grid.Row="7" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>
+                        <PasswordBox Grid.Row="7" Grid.Column="1" Margin="5"
+                                    x:Name="PasswordBoxInput"
+                                    PasswordChanged="PasswordBoxInput_PasswordChanged" />
                     </Grid>
 
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,20,0,0">

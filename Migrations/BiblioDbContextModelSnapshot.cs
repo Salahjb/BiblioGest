@@ -51,6 +51,10 @@ namespace BiblioGest.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<string>("PasswordHash")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
                     b.Property<string>("Prenom")
                         .IsRequired()
                         .HasMaxLength(50)

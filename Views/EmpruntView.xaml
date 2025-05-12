@@ -29,7 +29,7 @@
                   SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="ID" Binding="{Binding Id}" Width="60"/>
-                <DataGridTextColumn Header="Adhérent" Binding="{Binding Adherent.NomComplet}" Width="150"/>
+                <DataGridTextColumn Header="Adhérent" Binding="{Binding Adherent.Nom}" Width="150"/>
                 <DataGridTextColumn Header="Livre" Binding="{Binding Livre.Titre}" Width="*"/>
                 <DataGridTextColumn Header="Date d'emprunt" Binding="{Binding DateEmprunt, StringFormat=dd/MM/yyyy}" Width="120"/>
                 <DataGridTextColumn Header="Date limite" Binding="{Binding DateRetourPrevue, StringFormat=dd/MM/yyyy}" Width="120"/>
@@ -73,7 +73,7 @@
                         <ComboBox Grid.Row="0" Grid.Column="1" Margin="5" 
                                   ItemsSource="{Binding Adherents}"
                                   SelectedItem="{Binding SelectedAdherent}"
-                                  DisplayMemberPath="NomComplet" />
+                                  DisplayMemberPath="Nom" />
 
                         <!-- Livre (ComboBox) -->
                         <TextBlock Text="Livre:" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" Margin="5"/>

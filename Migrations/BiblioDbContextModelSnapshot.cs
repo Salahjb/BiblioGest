@@ -60,6 +60,9 @@ namespace BiblioGest.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
+                    b.Property<int>("Role")
+                        .HasColumnType("int");
+
                     b.Property<string>("Telephone")
                         .IsRequired()
                         .HasMaxLength(15)

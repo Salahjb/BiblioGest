@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Data;
@@ -14,13 +9,21 @@ namespace BiblioGest.Helpers
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            bool val = value is bool b && b;
-            return val ? Visibility.Visible : Visibility.Collapsed;
+            // Check if value is null, which is important for objects like LoggedInAdherent
+            if (value == null)
+                return Visibility.Collapsed;
+            
+            // If it's a boolean, use it directly
+            if (value is bool boolValue)
+                return boolValue ? Visibility.Visible : Visibility.Collapsed;
+            
+            // Otherwise, treat non-null as visible
+            return Visibility.Visible;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return value is Visibility v && v == Visibility.Visible;
+            throw new NotImplementedException();
         }
     }
 }

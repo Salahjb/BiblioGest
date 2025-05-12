@@ -40,7 +40,16 @@ namespace BiblioGest.Models
         [NotMapped] 
         public string Password { get; set; } = string.Empty;
 
+        // Add the Role property
+        public UserRole Role { get; set; } = UserRole.Member;
+
         // Navigation property
         public ICollection<Emprunt> Emprunts { get; set; } = new List<Emprunt>();
+    }
+
+    public enum UserRole
+    {
+        Member 
+        , Admin
     }
 }

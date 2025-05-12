@@ -15,7 +15,7 @@ namespace BiblioGest
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            //base.OnStartup(e);
+            base.OnStartup(e);
 
             // Initialize DbContext first
             DbContext = new BiblioDbContext();
@@ -33,7 +33,7 @@ namespace BiblioGest
                DataContext = Services.GetRequiredService<MainViewModel>()
            };
 
-            //mainWindow.Show();
+            mainWindow.Show();
         }
 
         private IServiceProvider ConfigureServices()
@@ -46,10 +46,9 @@ namespace BiblioGest
             // Register ViewModels
             services.AddSingleton<MainViewModel>();
             services.AddTransient<LivreViewModel>();
-            //services.AddTransient<LoginViewModel>();
+            services.AddTransient<LoginViewModel>();
             services.AddTransient<AdherentViewModel>();
             services.AddTransient<EmpruntViewModel>();
-            //services.AddTransient<EmpruntViewModel>();
 
             return services.BuildServiceProvider();
         }

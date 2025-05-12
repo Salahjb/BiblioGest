@@ -28,7 +28,7 @@
                              PasswordChanged="PasswordBox_PasswordChanged"/>
 
                 <!-- Login Button -->
-                <Button Content="Se connecter" Command="{Binding LoginCommand}" Background="#3498db" Foreground="White" />
+                <Button Content="Se connecter" Command="{Binding LoginCommand}" Background="#3498db" Foreground="Black" />
 
                 <!-- Error Message -->
                 <TextBlock Text="{Binding ErrorMessage}" Foreground="Red" Margin="0,10,0,0"

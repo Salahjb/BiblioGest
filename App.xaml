@@ -7,6 +7,8 @@
     <Application.Resources>
 
         <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+
+        <conv:EnumToVisibilityConverter x:Key="EnumToVisibilityConverter"/>
         
         <conv:InverseBoolToVisibilityConverter x:Key="InverseBoolToVisibilityConverter"/>
 

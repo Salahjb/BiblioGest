@@ -5,34 +5,66 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BiblioGest.ViewModels"
         xmlns:views="clr-namespace:BiblioGest.Views"
+        xmlns:conv="clr-namespace:BiblioGest.Helpers"
+        xmlns:global="clr-namespace:"
         mc:Ignorable="d"
         Title="BiblioGest - Gestion de Bibliothèque" Height="600" Width="1000">
-
+    <Window.Resources>
+        <conv:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <conv:EnumToVisibilityConverter x:Key="EnumToVisibilityConverter"/>
+    </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
         <!-- Navigation Menu -->
         <StackPanel Grid.Column="0" Background="#2c3e50">
             <TextBlock Text="BiblioGest" FontSize="24" Foreground="White" Margin="20" HorizontalAlignment="Center"/>
+            <TextBlock x:Name="WelcomeText" 
+                       Text="{Binding LoggedInAdherent.Nom, StringFormat='Bienvenue, {0}'}" 
+                       Foreground="White" 
+                       Margin="10,0,10,5"
+                       TextAlignment="Center"
+                       Visibility="{Binding LoggedInAdherent, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
+            <!-- Role indicator -->
+            <TextBlock Text="{Binding UserRole, StringFormat='Role: {0}'}" 
+                       Foreground="#3498db"
+                       FontWeight="Bold"
+                       Margin="10,0,10,15"
+                       TextAlignment="Center"
+                       Visibility="{Binding LoggedInAdherent, Converter={StaticResource BoolToVisibilityConverter}}"/>
+
+            <!-- Books button - visible for all logged in users -->
             <Button Content="Livres" 
                     Command="{Binding ShowBooksCommand}" 
                     Height="40" 
                     Margin="10,5" 
                     Background="#3498db" 
                     Foreground="White"
-                    BorderThickness="0"/>
+                    BorderThickness="0"
+                    Visibility="{Binding LoggedInAdherent, Converter={StaticResource BoolToVisibilityConverter}}"/>
 
+            <!-- Admin-only buttons -->
             <Button Content="Adhérents" 
                     Command="{Binding ShowMembersCommand}" 
                     Height="40" 
                     Margin="10,5" 
                     Background="#3498db" 
                     Foreground="White"
-                    BorderThickness="0"/>
+                    BorderThickness="0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding UserRole}" Value="Admin">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
 
             <Button Content="Emprunts" 
                     Command="{Binding ShowLoansCommand}" 
@@ -40,9 +72,19 @@
                     Margin="10,5" 
                     Background="#3498db" 
                     Foreground="White"
-                    BorderThickness="0"/>
+                    BorderThickness="0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding UserRole}" Value="Admin">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
         </StackPanel>
-        
 
         <!-- Content Area -->
         <ContentControl Grid.Column="1" Content="{Binding CurrentViewModel}">
@@ -59,7 +101,9 @@
                 <DataTemplate DataType="{x:Type local:EmpruntViewModel}">
                     <views:EmpruntView/>
                 </DataTemplate>
-                <!--  more templates for other ViewModels as needed -->
+                <DataTemplate DataType="{x:Type local:MemberDashboardViewModel}">
+                    <views:MemberDashboardView/>
+                </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>
     </Grid>

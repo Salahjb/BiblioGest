@@ -49,6 +49,8 @@ namespace BiblioGest
             services.AddTransient<LoginViewModel>();
             services.AddTransient<AdherentViewModel>();
             services.AddTransient<EmpruntViewModel>();
+            services.AddTransient<CategorieViewModel>();
+            
 
             return services.BuildServiceProvider();
         }

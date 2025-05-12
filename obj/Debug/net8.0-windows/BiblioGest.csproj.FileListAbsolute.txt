@@ -117,3 +117,5 @@ C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\BiblioGest.sourc
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\BiblioGest.csproj.Up2Date
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\BiblioGest.genruntimeconfig.cache
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\ref\BiblioGest.dll
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\CategorieView.g.cs
+C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\CategorieView.baml

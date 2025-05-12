@@ -33,6 +33,8 @@ namespace BiblioGest.ViewModels
         public ICommand ShowBooksCommand { get; private set; }
         public ICommand ShowMembersCommand { get; private set; }
         public ICommand ShowLoansCommand { get; private set; }
+        
+        public ICommand ShowCategoriesCommand { get; private set; } 
 
         public MainViewModel()
         {
@@ -67,6 +69,7 @@ namespace BiblioGest.ViewModels
             ShowBooksCommand = new RelayCommand(_ => { });
             ShowMembersCommand = new RelayCommand(_ => { });
             ShowLoansCommand = new RelayCommand(_ => { });
+            ShowCategoriesCommand = new RelayCommand(_ => { });
         }
 
         private void InitializeAdminNavigation()
@@ -75,11 +78,13 @@ namespace BiblioGest.ViewModels
             ShowBooksCommand = new RelayCommand(_ => CurrentViewModel = new LivreViewModel(_dbContext));
             ShowMembersCommand = new RelayCommand(_ => CurrentViewModel = new AdherentViewModel(_dbContext));
             ShowLoansCommand = new RelayCommand(_ => CurrentViewModel = new EmpruntViewModel(_dbContext));
+            ShowCategoriesCommand = new RelayCommand(_ => CurrentViewModel = new CategorieViewModel(_dbContext));
 
             // Notify UI that commands have changed
             OnPropertyChanged(nameof(ShowBooksCommand));
             OnPropertyChanged(nameof(ShowMembersCommand));
             OnPropertyChanged(nameof(ShowLoansCommand));
+            OnPropertyChanged((nameof(ShowCategoriesCommand)));
         }
 
         private void InitializeMemberNavigation()
@@ -90,11 +95,13 @@ namespace BiblioGest.ViewModels
             // No-op commands for members
             ShowMembersCommand = new RelayCommand(_ => { }); 
             ShowLoansCommand = new RelayCommand(_ => { });   
+            ShowCategoriesCommand = new RelayCommand(_ => { });
 
             // Notify UI that commands have changed
             OnPropertyChanged(nameof(ShowBooksCommand));
             OnPropertyChanged(nameof(ShowMembersCommand));
             OnPropertyChanged(nameof(ShowLoansCommand));
+            OnPropertyChanged(nameof(ShowCategoriesCommand));
         }
     }
 }

@@ -1,6 +1,5 @@
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\BiblioGest.csproj.AssemblyReference.cache
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\MemberDashboardView.baml
-C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\LoginWindow.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\MainWindow.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\AdherentView.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\EmpruntView.g.cs
@@ -11,7 +10,6 @@ C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\App.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\GeneratedInternalTypeHelper.g.cs
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\BiblioGest_MarkupCompile.cache
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\BiblioGest_MarkupCompile.lref
-C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\LoginWindow.baml
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\AdherentView.baml
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\EmpruntView.baml
 C:\Users\salah\source\repos\BiblioGest\obj\Debug\net8.0-windows\Views\LivreView.baml

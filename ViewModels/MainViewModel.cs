@@ -35,6 +35,8 @@ namespace BiblioGest.ViewModels
         public ICommand ShowLoansCommand { get; private set; }
         
         public ICommand ShowCategoriesCommand { get; private set; } 
+        public ICommand ShowDashboardCommand { get; private set; } 
+        
 
         public MainViewModel()
         {
@@ -70,6 +72,7 @@ namespace BiblioGest.ViewModels
             ShowMembersCommand = new RelayCommand(_ => { });
             ShowLoansCommand = new RelayCommand(_ => { });
             ShowCategoriesCommand = new RelayCommand(_ => { });
+            ShowDashboardCommand = new RelayCommand(_ => { });
         }
 
         private void InitializeAdminNavigation()
@@ -79,12 +82,14 @@ namespace BiblioGest.ViewModels
             ShowMembersCommand = new RelayCommand(_ => CurrentViewModel = new AdherentViewModel(_dbContext));
             ShowLoansCommand = new RelayCommand(_ => CurrentViewModel = new EmpruntViewModel(_dbContext));
             ShowCategoriesCommand = new RelayCommand(_ => CurrentViewModel = new CategorieViewModel(_dbContext));
+            ShowDashboardCommand = new RelayCommand(_ => CurrentViewModel = new DashboardViewModel(_dbContext));
 
             // Notify UI that commands have changed
             OnPropertyChanged(nameof(ShowBooksCommand));
             OnPropertyChanged(nameof(ShowMembersCommand));
             OnPropertyChanged(nameof(ShowLoansCommand));
-            OnPropertyChanged((nameof(ShowCategoriesCommand)));
+            OnPropertyChanged(nameof(ShowCategoriesCommand));
+            OnPropertyChanged(nameof(ShowDashboardCommand));
         }
 
         private void InitializeMemberNavigation()
@@ -96,12 +101,14 @@ namespace BiblioGest.ViewModels
             ShowMembersCommand = new RelayCommand(_ => { }); 
             ShowLoansCommand = new RelayCommand(_ => { });   
             ShowCategoriesCommand = new RelayCommand(_ => { });
+            ShowDashboardCommand = new RelayCommand(_ => { });
 
             // Notify UI that commands have changed
             OnPropertyChanged(nameof(ShowBooksCommand));
             OnPropertyChanged(nameof(ShowMembersCommand));
             OnPropertyChanged(nameof(ShowLoansCommand));
             OnPropertyChanged(nameof(ShowCategoriesCommand));
+            OnPropertyChanged(nameof(ShowDashboardCommand));
         }
     }
 }

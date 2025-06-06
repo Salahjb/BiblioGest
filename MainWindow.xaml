@@ -103,6 +103,26 @@
                     </Style>
                 </Button.Style>
             </Button>
+            
+            <Button Content="Dashboard" 
+                    Command="{Binding ShowDashboardCommand}" 
+                    Height="40" 
+                    Margin="10,5" 
+                    Background="#3498db" 
+                    Foreground="White"
+                    BorderThickness="0">
+                <Button.Style>
+                    <Style TargetType="Button">
+                        <Setter Property="Visibility" Value="Collapsed" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding UserRole}" Value="Admin">
+                                <Setter Property="Visibility" Value="Visible" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                
+            </Button>
         </StackPanel>
 
         <!-- Content Area -->
@@ -125,6 +145,9 @@
                 </DataTemplate>
                 <DataTemplate DataType="{x:Type local:CategorieViewModel}">
                     <views:CategorieView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type local:DashboardViewModel}">
+                    <views:DashboardView/>
                 </DataTemplate>
             </ContentControl.Resources>
         </ContentControl>

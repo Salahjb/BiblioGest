@@ -50,6 +50,7 @@ namespace BiblioGest
             services.AddTransient<AdherentViewModel>();
             services.AddTransient<EmpruntViewModel>();
             services.AddTransient<CategorieViewModel>();
+            services.AddTransient<DashboardViewModel>();
             
 
             return services.BuildServiceProvider();

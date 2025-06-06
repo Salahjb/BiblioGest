@@ -1,0 +1,142 @@
+﻿<!-- Add this namespace at the top of your UserControl tag -->
+<!-- xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.Wpf;assembly=LiveChartsCore.SkiaSharpView.Wpf"-->
+
+<!-- The full DashboardView.xaml -->
+<UserControl x:Class="BiblioGest.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.Wpf"
+             xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             mc:Ignorable="d" 
+             d:DesignHeight="600" d:DesignWidth="800"
+             Background="#F5F5F5">
+             
+    <UserControl.Resources>
+        <!-- Style for the statistic cards -->
+        <Style x:Key="StatCardStyle" TargetType="Border">
+            <Setter Property="Background" Value="White"/>
+            <Setter Property="CornerRadius" Value="8"/>
+            <Setter Property="Padding" Value="20"/>
+            <Setter Property="Margin" Value="10"/>
+            <Setter Property="MinWidth" Value="220"/>
+            <Setter Property="Effect">
+                <Setter.Value>
+                    <DropShadowEffect ShadowDepth="1" Color="#CCCCCC" Opacity="0.4" BlurRadius="10"/>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- Style for the large number in the card -->
+        <Style x:Key="StatValueStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Foreground" Value="#007ACC"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <!-- Style for the label text in the card -->
+        <Style x:Key="StatLabelStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Foreground" Value="#555555"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+        </Style>
+
+        <!-- Style for the main title -->
+        <Style x:Key="TitleTextStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#333333"/>
+            <Setter Property="Margin" Value="20,10,0,10"/>
+        </Style>
+        
+        <!-- Style for the chart titles -->
+        <Style x:Key="ChartTitleStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="16"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="#444444"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Margin" Value="0,0,0,10"/>
+        </Style>
+    </UserControl.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel>
+            <Grid>
+                <TextBlock Text="Tableau de Bord" Style="{StaticResource TitleTextStyle}" VerticalAlignment="Center"/>
+                <Button Content="Actualiser" Command="{Binding RefreshCommand}" 
+                        HorizontalAlignment="Right" VerticalAlignment="Center" 
+                        Width="100" Margin="0,0,20,0"/>
+            </Grid>
+            
+            <!-- Statistic Cards -->
+            <WrapPanel HorizontalAlignment="Center" Margin="10">
+                <!-- ... Your existing stat cards go here ... -->
+                <Border Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TotalLivres}" Style="{StaticResource StatValueStyle}"/>
+                        <TextBlock Text="Livres Uniques" Style="{StaticResource StatLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TotalExemplaires}" Style="{StaticResource StatValueStyle}"/>
+                        <TextBlock Text="Exemplaires au Total" Style="{StaticResource StatLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+                <Border Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding TotalAdherents}" Style="{StaticResource StatValueStyle}"/>
+                        <TextBlock Text="Adhérents" Style="{StaticResource StatLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+                 <Border Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding EmpruntsEnCours}" Style="{StaticResource StatValueStyle}"/>
+                        <TextBlock Text="Emprunts en Cours" Style="{StaticResource StatLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+                 <Border Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="{Binding EmpruntsEnRetard}" Style="{StaticResource StatValueStyle}" Foreground="Crimson"/>
+                        <TextBlock Text="Emprunts en Retard" Style="{StaticResource StatLabelStyle}"/>
+                    </StackPanel>
+                </Border>
+            </WrapPanel>
+            
+            <!-- Divider -->
+            <Separator Margin="20,10" />
+
+            <!-- Charts Section -->
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="1.5*"/>
+                </Grid.ColumnDefinitions>
+                
+                <!-- Pie Chart: Books by Category -->
+                <Border Grid.Column="0" Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Répartition des livres par catégorie" Style="{StaticResource ChartTitleStyle}"/>
+                        <wpf:PieChart Series="{Binding BooksByCategorySeries}"
+                                      Height="300"
+                                      LegendPosition="Bottom"/>
+                    </StackPanel>
+                </Border>
+                
+                <!-- Column Chart: Loan Activity -->
+                <Border Grid.Column="1" Style="{StaticResource StatCardStyle}">
+                    <StackPanel>
+                        <TextBlock Text="Activité des emprunts (15 derniers jours)" Style="{StaticResource ChartTitleStyle}"/>
+                        <wpf:CartesianChart Series="{Binding LoanActivitySeries}"
+                                            XAxes="{Binding LoanActivityXAxis}"
+                                            Height="300"
+                                            LegendPosition="Bottom"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>  

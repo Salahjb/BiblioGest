@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
 using BiblioGest.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BiblioGest.ViewModels
 {
@@ -52,6 +53,7 @@ namespace BiblioGest.ViewModels
             }
 
             var filteredLivres = _dbContext.Livres
+                .Include(l=> l.Categorie)  // Eager load the Categorie for each Livre
                 .Where(l => l.Titre.Contains(SearchText) ||
                            l.Auteur.Contains(SearchText) ||
                            l.ISBN.Contains(SearchText))

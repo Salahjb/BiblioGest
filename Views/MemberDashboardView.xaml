@@ -52,8 +52,6 @@
                 <DataGridTextColumn Header="Auteur" Binding="{Binding Auteur}" Width="*"/>
                 <DataGridTextColumn Header="ISBN" Binding="{Binding ISBN}" Width="Auto"/>
                 <DataGridTextColumn Header="Année" Binding="{Binding AnneePublication}" Width="Auto"/>
-                <DataGridTextColumn Header="Genre" Binding="{Binding Genre}" Width="Auto"/>
-                <DataGridTextColumn Header="Disponible" Binding="{Binding EstDisponible}" Width="Auto"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>
